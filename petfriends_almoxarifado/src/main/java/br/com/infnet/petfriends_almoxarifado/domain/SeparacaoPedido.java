@@ -1,6 +1,7 @@
 package br.com.infnet.petfriends_almoxarifado.domain;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -22,15 +23,15 @@ public class SeparacaoPedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false, unique = true)
-	private Long pedidoId;
+	@Embedded
+	private ReferenciaPedido pedido;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private StatusSeparacao status;
 
 	public SeparacaoPedido(Long pedidoId) {
-		this.pedidoId = pedidoId;
+		this.pedido = new ReferenciaPedido(pedidoId);
 		this.status = StatusSeparacao.EM_PREPARACAO;
 	}
 
